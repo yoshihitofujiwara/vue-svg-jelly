@@ -1,40 +1,30 @@
 // utils.js
-// version: 0.0.5
+// version: 0.0.6
 // author: yoshihito fujiwara
 
-
-
-export const RAD2DEG = 180 / Math.PI;
-
-
-/**
- * lerp - 線形補間
- *
- * @export
- * @param  {number} val 線形補間する指定の値
- * @param  {number} min   最小値
- * @param  {number} max   最大値
- * @returns {number}       線形補間した値
- */
-export function lerp(val, min, max) {
-	return (max - min) * val + min;
-};
+const toString = Object.prototype.toString;
 
 
 /**
- * distance - 距離関数
- *
- * @param  {vector2} vec2A
- * @param  {vector2} vec2B
- * @returns {number} 距離
+ * ラジアンからに角度変換する積数
+ * @static
+ * @property RAD_TO_DEG
+ * @type {number}
  */
-export function distance(vec2A, vec2B){
-	let x =	vec2B.x - vec2A.x;
-	let y = vec2B.y - vec2A.y;
-	return Math.sqrt(x * x + y * y);
-};
+export const RAD_TO_DEG = 180 / Math.PI;
 
 
+/**
+ * 角度からラジアンに変換する積数
+ * @static
+ * @property DEG_TO_RAD
+ * @type {number}
+ */
+export const DEG_TO_RAD = Math.PI / 180;
+
+
+/*
+--------------------------------------------------------------------------*/
 /**
  * getMouseEventAngle - マウスイベントが起こったアングルの取得
  *
@@ -45,11 +35,6 @@ export function getMouseEventAngle(event) {
 	let cy = event.srcElement.offsetHeight * 0.5;
 	let rad = Math.atan2(cy - event.offsetY, event.offsetX - cx);
 	return rad;
-}
-
-export function getAngle(vec2A, vec2B){
-	return Math.atan2(vec2A.y - vec2B.y, vec2B.x - vec2A.x);
-
 }
 
 
@@ -69,8 +54,6 @@ export function getNormalizeOffset(event) {
 		y: y / cy
   };
 }
-
-
 
 
 /**
@@ -147,4 +130,90 @@ export function createStyle(event) {
 		from: style01,
 		to: style02
 	};
+};
+
+
+/*
+--------------------------------------------------------------------------*/
+/**
+ * lerp - 線形補間
+ *
+ * @export
+ * @param  {number} val 線形補間する指定の値
+ * @param  {number} min   最小値
+ * @param  {number} max   最大値
+ * @returns {number}       線形補間した値
+ */
+export function lerp(val, min, max) {
+	return (max - min) * val + min;
+};
+
+
+
+/**
+ * 乱数の生成
+ * @static
+ * @param {number} min 最小値 ※省略可
+ * @param {number} max 最大値 ※省略可
+ * @return {number} 乱数を返します
+ */
+export function random(min = 0, max = 1) {
+	let random = Math.random();
+
+	if (min > max) {
+		let num = min;
+		min = max;
+		max = num;
+	}
+	return random * (max - min) + min;
+};
+
+
+/**
+ * ラジアンから角度を求める
+ * @static
+ * @method radToDeg
+ * @param {number} rad ラジアン
+ * @return {number} degree
+ */
+export function radToDeg(rad) {
+	return rad * RAD_TO_DEG;
+};
+
+
+/**
+ * 角度をラジアンに変換して返す
+ * @static
+ * @method degToRad
+ * @param {number} deg 角度
+ * @return {number} radian
+ */
+export function degToRad(deg) {
+	return deg * DEG_TO_RAD;
+};
+
+
+/*
+--------------------------------------------------------------------------*/
+/**
+ * オブジェクト型判定
+ * @static
+ * @method isObject
+ * @param {object} obj 判定するオブジェクト
+ * @return {boolean}
+ */
+export function isObject(obj) {
+	return !!obj && toString.call(obj) === "[object Object]";
+};
+
+
+/**
+ * 数値型判定
+ * @static
+ * @method isNumber
+ * @param {object} obj 判定するオブジェクト
+ * @return {boolean}
+ */
+export function isNumber(obj) {
+	return toString.call(obj) === "[object Number]";
 };

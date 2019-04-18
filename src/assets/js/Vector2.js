@@ -4,7 +4,7 @@
 /// Author Yoshihito Fujiwara
 /// Copyright (c) 2012 Yoshihito Fujiwara
 
-import * as utils from "../utils";
+import * as utils from "./utils";
 
 
 /**
