@@ -1,10 +1,10 @@
 # vue-svg-jelly
-
-<img src="sample.gif" />
-
 <ul>
 	<li><a href="http://yoshihitofujiwara.github.io/vue-svg-jelly/index.html" target="_blank">DEMO</a></li>
 </ul>
+
+<img src="sample.gif" />
+
 
 
 ___
@@ -56,6 +56,16 @@ ___
 |options.friction|Number|0.85|Jelly Point Friction|
 |options.k|Number|0.25|Spring Proportionality Constant|
 |options.maxSpeed|Number|20|Spring Max Speed|
+___
+
+## Supports
+- Chrome
+- ~~Safari~~
+- Firefox
+- Edge
+- IE 11
+- Android Chrome
+- ~~ios Safari~~
 ___
 
 

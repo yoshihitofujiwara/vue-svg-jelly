@@ -2,15 +2,8 @@
 	template
 ==========================================================================*/
 <template>
-  <svg @mousemove="mousemove" @mouseout="mouseout">
-    <image
-      :xlink:href="image"
-      width="100%"
-      height="100%"
-      x="0"
-      y="0"
-      clip-path="url(#clipPath)"
-    ></image>
+  <svg @mousemove="mousemove" @touchmove="mousemove" @mouseout="mouseout" @touchout="mouseout">
+    <image :xlink:href="image" width="100%" height="100%" x="0" y="0" clip-path="url(#clipPath)"></image>
     <clipPath id="clipPath">
       <path :d="d"></path>
     </clipPath>
@@ -24,38 +17,37 @@
 <script>
 import SvgCommand from "../assets/js/SvgCommand.js";
 
-
 export default {
   name: "SvgJelly",
 
   /**
    * @props
    */
-	props: {
-		image: String,
-		path: String,
+  props: {
+    image: String,
+    path: String,
     options: {
       type: Object,
       default: () => {
         return {
-					mass: 1,
-					friction: 0.85,
-					k: 0.25,
-					maxSpeed: 20,
-					range: 180
+          mass: 1,
+          friction: 0.85,
+          k: 0.25,
+          maxSpeed: 20,
+          range: 180
         };
       }
     }
-	},
+  },
 
   /**
    * @data
    */
   data() {
     return {
-			isActive: true,
-			// @private
-			d: "",
+      isActive: true,
+      // @private
+      d: "",
       commands: [],
       mouse: {
         x: Number.MAX_VALUE,
@@ -107,17 +99,22 @@ export default {
   /**
    * @beforeDestroy
    */
-	beforeDestroy(){
-		this.isActive = false;
-	},
+  beforeDestroy() {
+    this.isActive = false;
+  },
 
   /**
    * @methods
    */
   methods: {
     mousemove(event) {
-      this.mouse.x = event.offsetX;
-      this.mouse.y = event.offsetY;
+			if(event.touches){
+				this.mouse.x = event.touches[0].clientX;
+				this.mouse.y = event.touches[0].clientY;
+			} else {
+				this.mouse.x = event.offsetX;
+				this.mouse.y = event.offsetY;
+			}
     },
 
     mouseout() {
@@ -134,9 +131,9 @@ export default {
 
       this.d = d;
 
-			if(this.isActive){
-      	requestAnimationFrame(this._$update.bind(this));
-			}
+      if (this.isActive) {
+        requestAnimationFrame(this._$update.bind(this));
+      }
     }
   }
 };
@@ -148,4 +145,7 @@ export default {
 	style
 ==========================================================================*/
 <style scoped>
+svg{
+	-webkit-tap-highlight-color: transparent;
+}
 </style>
