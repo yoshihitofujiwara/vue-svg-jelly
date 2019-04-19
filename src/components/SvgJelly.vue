@@ -26,6 +26,11 @@ export default {
   props: {
     image: String,
     path: String,
+    // 後で回収
+    commandScale: {
+      type: Number,
+      default: 1
+    },
     options: {
       type: Object,
       default: () => {
@@ -34,7 +39,7 @@ export default {
           friction: 0.85,
           k: 0.25,
           maxSpeed: 20,
-          range: 180
+          range: 180,
         };
       }
     }
@@ -60,39 +65,9 @@ export default {
    * @created
    */
   created() {
-    let path = SvgCommand.getCommandList(this.path);
-    let commands = [];
-
-    path.forEach((item, index) => {
-      let svgCommand = new SvgCommand(item, this.options);
-
-      if (svgCommand.type.match(/H|V/)) {
-        let prevSvgCommand = commands[index - 1];
-
-        if (svgCommand.type == "H") {
-          svgCommand.points = [
-            {
-              x: svgCommand.points[0].x,
-              y: prevSvgCommand.points[prevSvgCommand.points.length - 1].y
-            }
-          ];
-        } else {
-          svgCommand.points = [
-            {
-              x: prevSvgCommand.points[prevSvgCommand.points.length - 1].x,
-              y: svgCommand.points[0].y
-            }
-          ];
-        }
-        svgCommand.type = "L";
-      }
-
-      svgCommand.setup();
-      commands.push(svgCommand);
-    });
-
-    this.commands = commands;
-
+    console.log("====iiii=")
+    console.log(this.options)
+    this.createCommands();
     this._$update();
   },
 
@@ -107,6 +82,42 @@ export default {
    * @methods
    */
   methods: {
+    createCommands(){
+      let path = SvgCommand.getCommandList(this.path);
+      let commands = [];
+
+      path.forEach((item, index) => {
+        let svgCommand = new SvgCommand(item, this.options, this.commandScale);
+
+        if (svgCommand.type.match(/H|V/)) {
+          let prevSvgCommand = commands[index - 1];
+
+          if (svgCommand.type == "H") {
+            svgCommand.points = [
+              {
+                x: svgCommand.points[0].x,
+                y: prevSvgCommand.points[prevSvgCommand.points.length - 1].y
+              }
+            ];
+          } else {
+            svgCommand.points = [
+              {
+                x: prevSvgCommand.points[prevSvgCommand.points.length - 1].x,
+                y: svgCommand.points[0].y
+              }
+            ];
+          }
+          svgCommand.type = "L";
+        }
+
+        svgCommand.setup();
+        // console.log(svgCommand);
+        commands.push(svgCommand);
+      });
+
+      this.commands = commands;
+    },
+
     mousemove(event) {
 			if(event.touches){
 				this.mouse.x = event.touches[0].clientX;

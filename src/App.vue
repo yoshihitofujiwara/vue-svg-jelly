@@ -1,12 +1,16 @@
 <template>
   <div id="app">
 		<h1>vue-svg-jelly</h1>
+
+    <div>
+
     <SvgJelly
       ref="svg"
       image="./assets/img/img02x500.jpg"
       path="M475 250 Q 475 343 409 409 Q 343 475 250 475 Q 157 475 91 409 Q 25 343 25 250 Q 25 157 91 91 Q 157 25 250 25 Q 343 25 409 91 Q 475 157 475 250"
       :options="{	mass: 1, friction: 0.85, k: 0.25, restLength: 0, maxSpeed: 20, range: 180}"
     />
+    </div>
   </div>
 </template>
 
@@ -66,6 +70,11 @@ export default {
 </script>
 
 <style>
+*{
+	margin: 0;
+	padding: 0;
+	border: none;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,10 +83,19 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+h1{
+	margin-bottom: 20px;
+}
 svg {
   height: 500px;
   width: 500px;
   cursor: pointer;
   background: #e9e9e9;
 }
+/* @media all and (max-width: 768px){
+	svg {
+		width: 100vw;
+		height: 100vw;
+	}
+} */
 </style>
