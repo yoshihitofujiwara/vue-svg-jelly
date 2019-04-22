@@ -8,18 +8,20 @@ export default class SvgCommand {
 	/**
 	 * @constructor
 	 */
-	constructor(command, magnetOptions) {
+	constructor(command, magnetOptions, scale) {
 		this.type = SvgCommand.getType(command);
 		this.points = this.getPoints(command);
 		this.magnets = null;
 		this.magnetOptions = magnetOptions;
+		this.scale = scale;
 	}
 
 
 	setup(){
 		if (this.points){
 			this.magnets = this.points.map(item => {
-				return new Magnet(item.x, item.y, this.magnetOptions);
+				// console.log(this.magnetOptions)
+				return new Magnet(item.x * this.scale, item.y * this.scale, this.magnetOptions);
 			});
 		}
 	}

@@ -1,6 +1,9 @@
 <template>
   <div id="app">
 		<h1>vue-svg-jelly</h1>
+
+    <div>
+
     <SvgJelly
       ref="svg"
 			viewBox="0 0 500 500"
@@ -9,6 +12,7 @@
       :options="{	mass: 1, friction: 0.85, k: 0.25, restLength: 0, maxSpeed: 20, range: 180}"
 			:scale="scale"
     />
+    </div>
   </div>
 </template>
 
@@ -121,4 +125,10 @@ svg {
 		/* height: 100%; */
 	}
 }
+/* @media all and (max-width: 768px){
+	svg {
+		width: 100vw;
+		height: 100vw;
+	}
+} */
 </style>
