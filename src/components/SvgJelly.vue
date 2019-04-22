@@ -65,8 +65,6 @@ export default {
    * @created
    */
   created() {
-    console.log("====iiii=")
-    console.log(this.options)
     this.createCommands();
     this._$update();
   },
@@ -86,8 +84,10 @@ export default {
       let path = SvgCommand.getCommandList(this.path);
       let commands = [];
 
+			console.log(path);
+
       path.forEach((item, index) => {
-        let svgCommand = new SvgCommand(item, this.options, this.commandScale);
+        let svgCommand = new SvgCommand(item, this.options);
 
         if (svgCommand.type.match(/H|V/)) {
           let prevSvgCommand = commands[index - 1];
