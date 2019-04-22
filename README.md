@@ -56,16 +56,18 @@ ___
 |options.friction|Number|0.85|Jelly Point Friction|
 |options.k|Number|0.25|Spring Proportionality Constant|
 |options.maxSpeed|Number|20|Spring Max Speed|
+
 ___
 
 ## Supports
+
 - Chrome
-- ~~Safari~~
+- Safari
 - Firefox
 - Edge
 - IE 11
 - Android Chrome
-- ~~ios Safari~~
+- ios Safari
 ___
 
 

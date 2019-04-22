@@ -5,6 +5,9 @@
 const toString = Object.prototype.toString;
 
 
+export const TWO_PI = Math.PI * 2;
+
+
 /**
  * ラジアンからに角度変換する積数
  * @static
@@ -21,6 +24,11 @@ export const RAD_TO_DEG = 180 / Math.PI;
  * @type {number}
  */
 export const DEG_TO_RAD = Math.PI / 180;
+
+/**
+ * ua
+ */
+export const ua = navigator.userAgent.toLowerCase();
 
 
 /*
@@ -130,7 +138,7 @@ export function createStyle(event) {
 		from: style01,
 		to: style02
 	};
-};
+}
 
 
 /*
@@ -146,8 +154,7 @@ export function createStyle(event) {
  */
 export function lerp(val, min, max) {
 	return (max - min) * val + min;
-};
-
+}
 
 
 /**
@@ -166,7 +173,7 @@ export function random(min = 0, max = 1) {
 		max = num;
 	}
 	return random * (max - min) + min;
-};
+}
 
 
 /**
@@ -178,7 +185,7 @@ export function random(min = 0, max = 1) {
  */
 export function radToDeg(rad) {
 	return rad * RAD_TO_DEG;
-};
+}
 
 
 /**
@@ -190,7 +197,7 @@ export function radToDeg(rad) {
  */
 export function degToRad(deg) {
 	return deg * DEG_TO_RAD;
-};
+}
 
 
 /*
@@ -204,7 +211,7 @@ export function degToRad(deg) {
  */
 export function isObject(obj) {
 	return !!obj && toString.call(obj) === "[object Object]";
-};
+}
 
 
 /**
@@ -216,4 +223,32 @@ export function isObject(obj) {
  */
 export function isNumber(obj) {
 	return toString.call(obj) === "[object Number]";
-};
+}
+
+/**
+ * isPC
+ */
+export function isPC() {
+	return ua.indexOf("windows") > -1 || ua.indexOf("intel mac os x ") > -1 && ua.indexOf("mobile") == -1;
+}
+
+/**
+ * isSD
+ */
+export function isSD() {
+	return ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("android") > -1;
+}
+
+/**
+ * isTB
+ */
+export function isTB() {
+	return ua.indexOf("ipad") > -1 || ua.indexOf("android") > -1 && ua.indexOf("mobile") < 0;
+}
+
+/**
+ * isSP
+ */
+export function isSP() {
+	return ua.indexOf("iphone") > -1 || ua.indexOf("android") > -1 && ua.indexOf("mobile") > -1;
+}

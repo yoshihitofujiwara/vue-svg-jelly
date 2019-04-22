@@ -2,7 +2,7 @@
 	template
 ==========================================================================*/
 <template>
-  <svg @mousemove="mousemove" @touchmove="mousemove" @mouseout="mouseout" @touchout="mouseout">
+  <svg @mousemove="mousemove" @touchmove="mousemove" @mouseout="mouseout" @touchout="mouseout" :viewBox="viewBox">
     <image :xlink:href="image" width="100%" height="100%" x="0" y="0" clip-path="url(#clipPath)"></image>
     <clipPath id="clipPath">
       <path :d="d"></path>
@@ -26,6 +26,7 @@ export default {
   props: {
     image: String,
     path: String,
+		viewBox: String,
     options: {
       type: Object,
       default: () => {
@@ -37,7 +38,11 @@ export default {
           range: 180
         };
       }
-    }
+    },
+		scale: {
+			type: Number,
+			default: 1
+		}
   },
 
   /**
@@ -109,11 +114,11 @@ export default {
   methods: {
     mousemove(event) {
 			if(event.touches){
-				this.mouse.x = event.touches[0].clientX;
-				this.mouse.y = event.touches[0].clientY;
+				this.mouse.x = event.touches[0].clientX / this.scale;
+				this.mouse.y = event.touches[0].clientY / this.scale;
 			} else {
-				this.mouse.x = event.offsetX;
-				this.mouse.y = event.offsetY;
+				this.mouse.x = event.offsetX / this.scale;
+				this.mouse.y = event.offsetY / this.scale;
 			}
     },
 
